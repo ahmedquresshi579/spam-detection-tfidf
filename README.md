@@ -2,6 +2,7 @@
 
 A binary classifier that flags messages as **spam** or **ham** (not spam), built with TF-IDF + a trained classifier, served through a Streamlit app.
 
+live deployment link: https://ahmedanjum-spam-detection-tfidf.streamlit.app/
 ## Pipeline
 
 ```
