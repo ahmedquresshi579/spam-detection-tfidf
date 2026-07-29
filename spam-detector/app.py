@@ -2,17 +2,21 @@
 Spam Detector — Streamlit App
 ==============================
 Run:
-    streamlit run app.py
+    streamlit run streamlit_app.py
 
 Loads the model + vectorizer saved by train.py and lets you test messages live.
 """
 
+import os
 import re
 import joblib
 import streamlit as st
 
-MODEL_PATH = "spam_model.joblib"
-VECTORIZER_PATH = "vectorizer.joblib"
+# Resolve paths relative to THIS file's location
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "spam_model.joblib")
+VECTORIZER_PATH = os.path.join(BASE_DIR, "vectorizer.joblib")
+BEST_MODEL_NAME_PATH = os.path.join(BASE_DIR, "best_model_name.txt")
 
 
 def clean_text(text: str) -> str:
@@ -28,7 +32,7 @@ def load_artifacts():
     model = joblib.load(MODEL_PATH)
     vectorizer = joblib.load(VECTORIZER_PATH)
     try:
-        with open("best_model_name.txt") as f:
+        with open(BEST_MODEL_NAME_PATH) as f:
             model_name = f.read().strip()
     except FileNotFoundError:
         model_name = model.__class__.__name__
